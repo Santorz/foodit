@@ -8,11 +8,12 @@ import {
   InputGroup,
   Icon,
 } from '@chakra-ui/react';
-import { SidebarStateContext } from '../pages/_app';
+import { useRouter } from 'next/router';
+import { SidebarStateContext, PageHasSidebarContext } from '../pages/_app';
 import { SearchIcon, HamburgerIcon, TriangleDownIcon } from '@chakra-ui/icons';
 import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
-import { CustomCartIcon } from './homepage/CustomCartIcon';
+import { CustomCartIcon } from './homepage/CustomIcons';
 import Link from 'next/link';
 import generalStyles from '../styles/generalStyles.module.css';
 
@@ -23,6 +24,8 @@ const Navbar = forwardRef<HTMLDivElement>((props, ref) => {
   // const isSmartPhoneandTablet = useMediaQuery({ query: '(max-width: 62em)' });
   const isSmartPhoneOnly = useMediaQuery({ query: '(max-width: 48em)' });
   const { onSidebarOpen } = useContext(SidebarStateContext);
+  const { pageHasSidebar } = useContext(PageHasSidebarContext);
+  const { asPath: currentPath } = useRouter();
 
   // Main JSX
   return (
@@ -45,7 +48,7 @@ const Navbar = forwardRef<HTMLDivElement>((props, ref) => {
     >
       {/* Logo and mobile sidebar activator */}
       <HStack gap='3.5'>
-        {isSmartPhoneOnly && (
+        {isSmartPhoneOnly && pageHasSidebar && (
           <Button
             bg='transparent'
             rounded='none'
@@ -55,15 +58,15 @@ const Navbar = forwardRef<HTMLDivElement>((props, ref) => {
             <HamburgerIcon boxSize='2em' />
           </Button>
         )}
-        <Image
-          src='/images/foodit-logo.png'
-          alt='foodit logo'
-          width='65'
-          height='65'
-          className={generalStyles.borderRad50}
-          onContextMenu={(e) => e.preventDefault()}
-          onDrag={(e) => e.preventDefault()}
-        />
+        {currentPath !== '/' ? (
+          <Link href='/'>
+            <a>
+              <NavLogo />
+            </a>
+          </Link>
+        ) : (
+          <NavLogo />
+        )}
       </HStack>
 
       {/* Search Bar */}
@@ -114,6 +117,20 @@ const Navbar = forwardRef<HTMLDivElement>((props, ref) => {
     </Flex>
   );
 });
+
+const NavLogo = () => {
+  return (
+    <Image
+      src='/images/foodit-logo.png'
+      alt='foodit logo'
+      width='60'
+      height='60'
+      className={generalStyles.borderRad50}
+      onContextMenu={(e) => e.preventDefault()}
+      onDrag={(e) => e.preventDefault()}
+    />
+  );
+};
 
 Navbar.displayName = 'Navbar';
 export default Navbar;

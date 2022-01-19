@@ -5,7 +5,6 @@ import {
   Flex,
   Box,
   StackDivider,
-  useDisclosure,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -14,6 +13,7 @@ import {
   BodyWidthContext,
   NavHeightContext,
   SidebarStateContext,
+  PageHasSidebarContext,
 } from '../pages/_app';
 import { useMediaQuery } from 'react-responsive';
 
@@ -21,12 +21,13 @@ import { useMediaQuery } from 'react-responsive';
 const SidebarContainer = () => {
   // Hooks
   const isSmartPhoneOnly = useMediaQuery({ query: '(max-width: 48em)' });
-  const navHeight = useContext(NavHeightContext);
+  // const navHeight = useContext(NavHeightContext);
+  const { pageHasSidebar } = useContext(PageHasSidebarContext);
   const { isSidebarOpen, onSidebarClose } = useContext(SidebarStateContext);
 
   return (
     <>
-      {isSmartPhoneOnly ? (
+      {isSmartPhoneOnly && pageHasSidebar && (
         <Drawer
           placement='left'
           isOpen={isSidebarOpen}
@@ -38,9 +39,8 @@ const SidebarContainer = () => {
           </DrawerContent>
           <DrawerOverlay backdropFilter='blur(15px) saturate(180%)' />
         </Drawer>
-      ) : (
-        <SidebarContent />
       )}
+      {!isSmartPhoneOnly && pageHasSidebar && <SidebarContent />}
     </>
   );
 };

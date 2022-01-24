@@ -13,7 +13,7 @@ import { SidebarStateContext, PageHasSidebarContext } from '../pages/_app';
 import { SearchIcon, HamburgerIcon, TriangleDownIcon } from '@chakra-ui/icons';
 import { useMediaQuery } from 'react-responsive';
 import Image from 'next/image';
-import { CustomCartIcon } from './homepage/CustomIcons';
+import { CustomCartIcon } from './general/CustomIcons';
 import Link from 'next/link';
 import generalStyles from '../styles/generalStyles.module.css';
 
@@ -44,10 +44,11 @@ const Navbar = forwardRef<HTMLDivElement>((props, ref) => {
       left='0'
       top='0 !important'
       zIndex='99 !important'
-      bg='white'
+      bg='rgba(255, 255, 255, 0.85);'
+      backdropFilter='blur(15px) saturate(180%)'
     >
       {/* Logo and mobile sidebar activator */}
-      <HStack gap='3.5'>
+      <HStack gap='2'>
         {isSmartPhoneOnly && pageHasSidebar && (
           <Button
             bg='transparent'
@@ -68,33 +69,34 @@ const Navbar = forwardRef<HTMLDivElement>((props, ref) => {
           <NavLogo />
         )}
       </HStack>
-
       {/* Search Bar */}
-      <HStack gap='3.5'>
-        <InputGroup w='max-content'>
-          <Input
-            border='1px solid #445F43 !important'
-            type='search'
-            w={{ base: '40', md: 'md', lg: 'lg' }}
-            placeholder={
-              isSmartPhoneOnly ? 'Search' : 'What are you looking for ?'
-            }
-            textAlign='center'
-            rounded='none'
-          />
-          <InputRightElement>
-            <Button bg='transparent' rounded='none'>
-              <SearchIcon />
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+      {pageHasSidebar && (
+        <HStack gap='3.5'>
+          <InputGroup w='max-content'>
+            <Input
+              border='1px solid #445F43 !important'
+              type='search'
+              w={{ base: '40', md: 'md', lg: 'lg' }}
+              placeholder={
+                isSmartPhoneOnly ? 'Search' : 'What are you looking for ?'
+              }
+              textAlign='center'
+              rounded='none'
+            />
+            <InputRightElement>
+              <Button bg='transparent' rounded='none'>
+                <SearchIcon />
+              </Button>
+            </InputRightElement>
+          </InputGroup>
 
-        {isSmartPhoneOnly && (
-          <Button bg='transparent' rounded='none' p='0'>
-            <TriangleDownIcon boxSize='1.75em' />
-          </Button>
-        )}
-      </HStack>
+          {isSmartPhoneOnly && (
+            <Button bg='transparent' rounded='none' p='0'>
+              <TriangleDownIcon boxSize='1.75em' />
+            </Button>
+          )}
+        </HStack>
+      )}
 
       {/* Login / Register / Cart nav */}
       {!isSmartPhoneOnly && (

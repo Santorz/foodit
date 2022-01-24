@@ -1,8 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { VStack } from '@chakra-ui/react';
-import PageWrapper from '../components/PageWrapper';
+import PageWrapper from '../components/general/PageWrapper';
 import MainPageHero from '../components/homepage/hero';
+import FeaturedProducts from '../components/homepage/featProducts';
 
 const Home: NextPage = () => {
   return (
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
         {/* Main contents start here */}
         <VStack mx='auto !important'>
           <MainPageHero />
+          <FeaturedProducts />
         </VStack>
       </PageWrapper>
     </>

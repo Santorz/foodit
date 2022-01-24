@@ -1,5 +1,5 @@
 import { useContext, FC } from 'react';
-import Link from 'next/link';
+import ActiveLink from './general/ActiveLink';
 import {
   VStack,
   Flex,
@@ -16,6 +16,10 @@ import {
   PageHasSidebarContext,
 } from '../pages/_app';
 import { useMediaQuery } from 'react-responsive';
+import { useRouter } from 'next/router';
+
+// CSS
+import generalStyles from '../styles/generalStyles.module.css';
 
 // Sidebar Main Component
 const SidebarContainer = () => {
@@ -57,6 +61,9 @@ const SidebarContent: FC<SidebarContentProps> = ({ children, ...props }) => {
   const bodyWidth = useContext(BodyWidthContext);
   const navHeight = useContext(NavHeightContext);
   const isSmartPhoneOnly = useMediaQuery({ query: '(max-width: 48em)' });
+  const isTabletOnly = useMediaQuery({
+    query: '(min-width: 48em) and (max-width: 62em)',
+  });
   return (
     <>
       <Flex
@@ -71,9 +78,21 @@ const SidebarContent: FC<SidebarContentProps> = ({ children, ...props }) => {
         pt={{ base: '1', md: '0' }}
         pr={{ base: 1.5, lg: '2' }}
         overflowY='auto'
-        top={isSmartPhoneOnly ? '0px' : `${navHeight + 20}px`}
+        top={
+          isSmartPhoneOnly
+            ? '0px'
+            : isTabletOnly
+            ? `${navHeight + 5}px`
+            : `${navHeight + 20}px`
+        }
         bottom='0'
-        w={isSmartPhoneOnly ? '100%' : `${bodyWidth / 5}px`}
+        w={
+          isSmartPhoneOnly
+            ? '100%'
+            : isTabletOnly
+            ? `${bodyWidth / 4}px`
+            : `${bodyWidth / 5}px`
+        }
         zIndex='3'
         css={{
           '&::-webkit-scrollbar': {
@@ -122,7 +141,7 @@ const SidebarContent: FC<SidebarContentProps> = ({ children, ...props }) => {
         >
           <SidebarBox header='true'>Information</SidebarBox>
           <SidebarBox>Delivery Information</SidebarBox>
-          <SidebarBox>Contact us</SidebarBox>
+          <SidebarBox href='/contact'>Contact us</SidebarBox>
         </VStack>
       </Flex>
     </>
@@ -136,24 +155,45 @@ interface SidebarboxProps {
 }
 const SidebarBox: FC<SidebarboxProps> = ({ children, ...props }) => {
   const { header, href } = props;
+  const { asPath } = useRouter();
   return (
     <Box
       {...props}
       userSelect='none'
-      py='20px'
-      pl='17px'
-      m='0 !important'
-      color={header === 'true' ? 'black' : '#445F43'}
       fontSize={header === 'true' ? '20px' : '16px'}
       fontWeight={header === 'true' ? 'bold' : 'normal'}
-      bgColor={header === 'true' ? '#CFEACE' : 'white'}
     >
       {header === 'true' ? (
-        children
+        <h3
+          style={{
+            display: 'block',
+            width: '100%',
+            height: 'inherit',
+            padding: '20px 17px',
+            background: `${
+              asPath === '/' ? 'rgba(150, 201, 60, 0.4)' : 'white'
+            }`,
+          }}
+        >
+          {children}
+        </h3>
       ) : (
-        <Link href={href === undefined ? '/#' : href}>
-          <a>{children}</a>
-        </Link>
+        <ActiveLink
+          activeClassName='activeSidebarLink'
+          href={href === undefined ? '/#' : href}
+        >
+          <a
+            style={{
+              display: 'block',
+              width: '100%',
+              height: 'inherit',
+              padding: '20px 17px',
+              color: '#445F43',
+            }}
+          >
+            {children}
+          </a>
+        </ActiveLink>
       )}
     </Box>
   );

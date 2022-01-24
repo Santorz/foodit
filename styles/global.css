@@ -1,0 +1,6 @@
+.activeSidebarLink {
+  background-color: rgba(150, 201, 60, 0.4) !important;
+}
+.activeSidebarLink::after {
+  content: ' \2605';
+}

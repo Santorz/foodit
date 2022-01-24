@@ -1,0 +1,28 @@
+{
+  "featuredproducts": [
+    {
+      "id": 112348849,
+      "name": "Ijebu Garri - 5kg",
+      "price": 2500.0,
+      "priority": 1
+    },
+    {
+      "id": 112343312,
+      "name": "Enugu Garri - 5kg",
+      "price": 2000.0,
+      "priority": 9
+    },
+    {
+      "id": 1122383312,
+      "name": "Ikwerre Garri - 5kg",
+      "price": 3000.0,
+      "priority": 4
+    },
+    {
+      "id": 1119903312,
+      "name": "Ogoni Garri- 5kg",
+      "price": 1500.0,
+      "priority": 5
+    }
+  ]
+}

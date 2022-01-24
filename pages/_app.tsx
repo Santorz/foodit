@@ -1,8 +1,13 @@
 import type { AppProps } from 'next/app';
 import React, { useEffect, useRef, createContext, useState } from 'react';
 import { ChakraProvider, Container, useDisclosure } from '@chakra-ui/react';
+import customTheme from '../theme';
 import Navbar from '../components/navbar';
 import Sidebar from '../components/sidebar';
+
+// CSS
+import '../theme/styles.css';
+import '../styles/global.css';
 
 // Context types and their corresponding default values
 type SidebarContextType = {
@@ -79,7 +84,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   // Main JSX
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={customTheme}>
       <PageHasSidebarContext.Provider
         value={{ pageHasSidebar, setPageHasSidebar }}
       >

@@ -24,5 +24,45 @@
       "price": 1500.0,
       "priority": 5
     }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "email": "ken@foodit.com",
+      "password": "1414Ken&",
+      "isLoggedIn": false
+    },
+    {
+      "id": 2,
+      "email": "saint@foodit.com",
+      "password": "1414Saint&",
+      "isLoggedIn": false
+    }
+  ],
+
+  "products": [
+    {
+      "id": 11234,
+      "rating": 4.5,
+      "availability": "high",
+      "price": 2500.0,
+      "category": 1
+    },
+    {
+      "id": 112348849,
+      "rating": 4.5,
+      "availability": "high",
+      "price": 2500.0,
+      "category": 1,
+      "name": "Ijebu Garri - 5kg"
+    }
+  ],
+
+  "categories": [
+    {
+      "id": 1,
+      "name": "Fruits & Vegetables"
+    }
   ]
 }

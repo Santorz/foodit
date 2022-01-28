@@ -52,6 +52,7 @@ const FeaturedProducts: FC = () => {
                 <EachProduct
                   key={prodID + index + Math.floor(Math.random() * 1000)}
                   {...product}
+                  prodID={prodID}
                 />
               );
             })}

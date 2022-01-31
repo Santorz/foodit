@@ -43,26 +43,20 @@
 
   "products": [
     {
-      "id": 11234,
-      "rating": 4.5,
-      "availability": "high",
-      "price": 2500.0,
-      "category": 1
-    },
-    {
       "id": 112348849,
       "rating": 4.5,
       "availability": "high",
       "price": 2500.0,
       "category": 1,
-      "name": "Ijebu Garri - 5kg"
+      "name": "Ijebu Garri - 5kg",
+      "imgSrc": "112348849.svg"
     }
   ],
 
   "categories": [
     {
       "id": 1,
-      "name": "Fruits & Vegetables"
+      "categoryName": "Fruits & Vegetables"
     }
   ]
 }

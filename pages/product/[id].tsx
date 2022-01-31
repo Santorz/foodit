@@ -4,15 +4,15 @@ import axios, { AxiosError } from 'axios';
 
 import PageWrapper from '../../components/general/PageWrapper';
 import ProductComponent from '../../components/product';
-import { Heading, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { id } = params!;
   let apiRes;
   try {
-    apiRes = await axios.get(`http://192.168.8.103:8080/products/${id}`);
+    apiRes = await axios.get(`http://192.168.8.107:8080/products/${id}`);
   } catch (err: AxiosError | any) {
-    apiRes = err.response.status;
+    apiRes = err.response!.status;
   }
 
   //
@@ -26,9 +26,19 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 // Global Vars and Funcs
 export interface fullCategoryInterface {
   name: string | '';
+  categoryName: string | '';
+  rating: number;
+  availability: string | '';
+  price: string | '';
+  imgSrc: string | '';
 }
 const initialCategory = {
   name: '',
+  categoryName: '',
+  rating: 0,
+  availability: '',
+  price: '',
+  imgSrc: '',
 };
 
 const ProductPage = (
@@ -36,7 +46,7 @@ const ProductPage = (
 ) => {
   // Props
   const { data } = props;
-  const { id: productID, category: productCategoryNum } = data || {};
+  const { id: prodID, category: productCategoryNum } = data || {};
 
   // useStates
   const [category, setCategory] =
@@ -45,20 +55,26 @@ const ProductPage = (
   // useEffects
   useEffect(() => {
     axios
-      .get(`http://192.168.8.103:8080/categories/${productCategoryNum}`)
+      .get(`http://192.168.8.107:8080/categories/${productCategoryNum}`)
       .then((res) => {
         setCategory(res.data);
       })
       .catch((err) => setCategory(initialCategory));
   }, [productCategoryNum]);
 
-  const { name: categoryName } = category!;
-
   return (
     <>
       <PageWrapper hasSidebar>
-        {typeof data === 'object' && <ProductComponent {...category} />}
-        {typeof data !== 'object' && <Text fontSize='7xl'>{data}</Text>}
+        {typeof data === 'object' && (
+          <ProductComponent {...category} {...data} />
+        )}
+        {typeof data !== 'object' && (
+          <>
+            <Text fontSize='4xl' textAlign='center'>
+              Product not found
+            </Text>
+          </>
+        )}
       </PageWrapper>
     </>
   );

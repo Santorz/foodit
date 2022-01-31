@@ -16,7 +16,7 @@ export const useGetFeaturedProducts = (): {
   isError: boolean;
 } => {
   const { data, error } = useSWR(
-    'http://192.168.8.103:8080/featuredproducts',
+    'http://192.168.8.107:8080/featuredproducts',
     fetcher
   );
 

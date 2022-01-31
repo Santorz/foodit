@@ -7,12 +7,13 @@ interface ProductInterface {
   name: string;
   price: number;
   priority: number;
+  imgSrc: string;
 }
 type BtnHeightType = number | undefined;
 
 // Main Component
 const EachProduct: FC<ProductInterface> = (props) => {
-  const { prodID, name, price } = props;
+  const { prodID, name, price, imgSrc } = props;
   // State values
   const [btnHeight, setBtnHeight] = useState<BtnHeightType>(0);
 
@@ -47,7 +48,7 @@ const EachProduct: FC<ProductInterface> = (props) => {
         >
           <Image
             alt={name}
-            src='/images/products/garri-1.svg'
+            src={`/images/products/${imgSrc}`}
             h='119.7px'
             w='55.73%'
             mt='15.3px'

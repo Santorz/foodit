@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   AspectRatio,
+  Divider,
 } from '@chakra-ui/react';
 
 import { fullCategoryInterface } from '../../pages/product/[id]';
@@ -49,7 +50,12 @@ const ProductComponent = ({
           </AspectRatio>
           {/* Product details */}
           <Flex direction='column'>
-            <VStack spacing='5' align='flex-start'>
+            <VStack
+              spacing='5'
+              align='flex-start'
+              pb='10'
+              borderBottom='1px solid rgba(68, 95, 67, 0.45) !important'
+            >
               <Text fontSize='2xl'>{name}</Text>
               <Text fontSize='2xl' color='rgba(105, 143, 52, 1)'>
                 &#8358;&nbsp;{Number(price).toFixed(2)}

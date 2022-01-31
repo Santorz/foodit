@@ -4,25 +4,29 @@
       "id": 112348849,
       "name": "Ijebu Garri - 5kg",
       "price": 2500.0,
-      "priority": 1
+      "priority": 1,
+      "imgSrc": "112348849.svg"
     },
     {
       "id": 112343312,
-      "name": "Enugu Garri - 5kg",
-      "price": 2000.0,
-      "priority": 9
+      "name": "Plantain (bunch)",
+      "price": 3500.0,
+      "priority": 9,
+      "imgSrc": "112343312.svg"
     },
     {
       "id": 1122383312,
-      "name": "Ikwerre Garri - 5kg",
-      "price": 3000.0,
-      "priority": 4
+      "name": "Red Meat - 5kg",
+      "price": 6200.0,
+      "priority": 4,
+      "imgSrc": "1122383312.svg"
     },
     {
       "id": 1119903312,
-      "name": "Ogoni Garri- 5kg",
-      "price": 1500.0,
-      "priority": 5
+      "name": "Crate of Eggs",
+      "price": 1750.0,
+      "priority": 5,
+      "imgSrc": "1119903312.svg"
     }
   ],
 
@@ -50,6 +54,33 @@
       "category": 1,
       "name": "Ijebu Garri - 5kg",
       "imgSrc": "112348849.svg"
+    },
+    {
+      "id": 112343312,
+      "rating": 4,
+      "name": "Plantain (bunch)",
+      "price": 3500.0,
+      "priority": 9,
+      "imgSrc": "112343312.svg",
+      "availability": "high"
+    },
+    {
+      "id": 1122383312,
+      "rating": 4.75,
+      "name": "Red Meat - 5kg",
+      "price": 6200.0,
+      "priority": 4,
+      "imgSrc": "1122383312.svg",
+      "availability": "high"
+    },
+    {
+      "id": 1119903312,
+      "rating": 3.5,
+      "name": "Crate of Eggs",
+      "price": 1750.0,
+      "priority": 5,
+      "imgSrc": "1119903312.svg",
+      "availability": "high"
     }
   ],
 

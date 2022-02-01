@@ -35,13 +35,17 @@
       "id": 1,
       "email": "ken@foodit.com",
       "password": "1414Ken&",
-      "isLoggedIn": false
+      "isLoggedIn": false,
+      "name": "Friday Kennedy",
+      "cart": []
     },
     {
       "id": 2,
       "email": "saint@foodit.com",
       "password": "1414Saint&",
-      "isLoggedIn": false
+      "isLoggedIn": false,
+      "name": "Saint Taila-Brisbe",
+      "cart": []
     }
   ],
 
@@ -61,6 +65,7 @@
       "name": "Plantain (bunch)",
       "price": 3500.0,
       "priority": 9,
+      "category": 2,
       "imgSrc": "112343312.svg",
       "availability": "high"
     },
@@ -70,6 +75,7 @@
       "name": "Red Meat - 5kg",
       "price": 6200.0,
       "priority": 4,
+      "category": 3,
       "imgSrc": "1122383312.svg",
       "availability": "high"
     },
@@ -79,6 +85,7 @@
       "name": "Crate of Eggs",
       "price": 1750.0,
       "priority": 5,
+      "category": 4,
       "imgSrc": "1119903312.svg",
       "availability": "high"
     }

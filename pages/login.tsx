@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { FC, useState, ChangeEvent } from 'react';
+import axios, { AxiosError } from 'axios';
 import { emailRegex, passwordRegex } from '../funcs/regexValidator';
 import Head from 'next/head';
 import PageWrapper from '../components/general/PageWrapper';
@@ -56,12 +58,22 @@ const initialFormData: FormDataInterface = {
   password: '',
 };
 
+const logUserIn = async (email: string, password: string) => {
+  const request = await axios.get(
+    `http://192.168.8.107:8080/users?email=${email}&password=${encodeURIComponent(
+      password
+    )}`
+  );
+  return request;
+};
+
 // Main Component
 const LoginForm: FC = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { email, password } = formData;
   const toast = useToast();
+  const router = useRouter();
 
   // Variables
   const isEmailError: boolean = email === '' || !email.match(emailRegex);
@@ -71,32 +83,63 @@ const LoginForm: FC = () => {
   // Funcs
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target! as HTMLInputElement;
-    setFormData({ ...formData, [target.name]: target.value });
+    setFormData({ ...formData, [target.name.trim()]: target.value.trim() });
   };
-  type toaststatustype = 'error' | 'info' | 'warning' | 'success';
-  const showToast = (status: toaststatustype) => {
+  type toaststatustype = 'error' | 'info' | 'warning' | 'success' | undefined;
+  const showToast = (
+    status: toaststatustype,
+    message?: string,
+    isError?: boolean
+  ) => {
     toast({
-      title: `${status.toUpperCase()}`,
-      status: status,
+      title: `${
+        status ? status.toString().toUpperCase() : isError ? 'ERROR' : undefined
+      }`,
+      status: status ? status : isError ? 'error' : undefined,
       position: 'top-right',
       isClosable: true,
       duration: 5000,
       description:
-        status === 'error'
-          ? 'Oops.. Something went wrong'
-          : status === 'warning'
+        status === 'error' && !message
+          ? 'Invalid username or password'
+          : status === 'warning' && !message
           ? 'One input field is either empty or has invalid content'
-          : status === 'success'
+          : status === 'success' && !message
           ? `You've successfully logged in.`
+          : status === undefined && message
+          ? message
           : undefined,
     });
+    setIsSubmitting(false);
   };
+
   // Main submission func
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isEmailError && !isPasswordError) {
       setIsSubmitting(true);
-      showToast('success');
+      try {
+        const responseArr = await logUserIn(email, password);
+        if (responseArr.data.length > 0) {
+          const { id, email, password, name, isLoggedIn, cart } =
+            responseArr.data[0];
+          const objToSet = {
+            id: id,
+            email: email,
+            password: '********',
+            name: name,
+            isLoggedIn: true,
+            cart: cart,
+          };
+          localStorage.setItem('fooditUser', JSON.stringify(objToSet));
+          showToast('success');
+          router.push('/');
+        } else {
+          showToast('error');
+        }
+      } catch (err: AxiosError | any) {
+        showToast(undefined, err.message.toString(), true);
+      }
     } else {
       showToast('warning');
     }
